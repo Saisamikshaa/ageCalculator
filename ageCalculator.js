@@ -1,35 +1,30 @@
-let ageCalculate = (dateOfBirth, monthOfBirth, yearOfBirth) => {
-  let birthDate = Number(dateOfBirth);
-  let birthMonth = Number(monthOfBirth);
-  let birthYear = Number(yearOfBirth);
+const ageCalculate = (dateOfBirth, monthOfBirth, yearOfBirth) => {
+  const birthDate = new Date(yearOfBirth, monthOfBirth - 1, dateOfBirth);
+  const today = new Date();
 
-  let currentDate = new Date();
+  let age = today.getFullYear() - birthDate.getFullYear();
+  let monthDiff = today.getMonth() - birthDate.getMonth();
+  let dayDiff = today.getDate() - birthDate.getDate();
 
-  let currentDay = currentDate.getDate();
-  let currentMonth = currentDate.getMonth() + 1;
-  let currentYear = currentDate.getFullYear();
-
-  const numDays = (y, m) => {
-    let days = new Date(y, m, 0);
-    let lastDate = days.getDate();
-    return lastDate;
-  };
-
-  let lastDay = numDays(currentYear, currentMonth);
-
-  if (currentMonth < birthMonth) {
-    currentMonth = 12 + currentMonth;
-    currentYear = currentYear - 1;
-  }
-  if (currentDay < birthDate) {
-    currentDay = currentDay + lastDay;
-    currentMonth = currentMonth - 1;
+  if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
+      age--;
   }
 
-  let year = currentYear - birthYear;
-  let month = currentMonth - birthMonth;
-  let day = currentDay - birthDate;
+  let months = monthDiff < 0 ? 12 + monthDiff : monthDiff;
+  let days = dayDiff < 0 ? new Date(today.getFullYear(), today.getMonth(), 0).getDate() + dayDiff : dayDiff;
 
-  let ageCalculator = `${year} ${month}${day}`;
-  return ageCalculator;
+  return `${age} years, ${months} months, ${days} days`;
 };
+
+function calculateAge() {
+  const dateOfBirth = parseInt(document.getElementById('dateOfBirth').value, 10);
+  const monthOfBirth = parseInt(document.getElementById('monthOfBirth').value, 10);
+  const yearOfBirth = parseInt(document.getElementById('yearOfBirth').value, 10);
+
+  if (!isNaN(dateOfBirth) && !isNaN(monthOfBirth) && !isNaN(yearOfBirth)) {
+      const age = ageCalculate(dateOfBirth, monthOfBirth, yearOfBirth);
+      document.getElementById('ageResult').textContent = `You are ${age} old.`;
+  } else {
+      document.getElementById('ageResult').textContent = "Please enter valid date, month, and year.";
+  }
+}

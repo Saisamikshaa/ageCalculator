@@ -1,32 +1,30 @@
-<!DOCTYPE hmtl>
-<html>
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <script src = "ageCalculator.js" defer></script>
-    <style>
-    body {
-        background-color: linen;
-      }
-      button {
-        display: flex;
-        margin: 10px auto;
-        background-color: black;
-        color: white;
-        border-radius: 10px;
-        height: 25px;
-      }
-      
-      div {
-        height: 100vh;
-        width: 100vw;
-        background-color: rgb(247, 58, 58);
-      }
-      </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age Calculator</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
-    <button onclick = "ageCalculate(25,11,2020)" id="button">age Calculate</button>
-    <div id="demo"></div>
-</body>
+    <div class="container">
+        <h1>Age Calculator</h1>
+        <div class="input-group">
+            <label for="dateOfBirth">Date of Birth:</label>
+            <input type="number" id="dateOfBirth" placeholder="Day (e.g., 15)" min="1" max="31">
+        </div>
+        <div class="input-group">
+            <label for="monthOfBirth">Month of Birth:</label>
+            <input type="number" id="monthOfBirth" placeholder="Month (e.g., 6 for June)" min="1" max="12">
+        </div>
+        <div class="input-group">
+            <label for="yearOfBirth">Year of Birth:</label>
+            <input type="number" id="yearOfBirth" placeholder="Year (e.g., 1990)" min="1900" max="2100">
+        </div>
+        <button class="btn" onclick="calculateAge()">Calculate Age</button>
+        <p id="ageResult" class="status-message"></p>
+    </div>
 
+    <script src="ageCalculator.js"></script>
+</body>
 </html>
